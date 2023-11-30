@@ -1,5 +1,6 @@
 package com.ep.plugins
 
+import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -16,12 +17,17 @@ fun Application.contactUsModule() {
         get("/about-us") {
             call.respondText("Thanks for visiting about us.")
         }
+
+        get("/contact-details") {
+            val contactUsEntity = ContactUsEntity("Yash", "+919105885150", "yash@abc.com")
+            call.respond(status = HttpStatusCode.OK, contactUsEntity)
+        }
     }
 }
 
 @Serializable
 data class ContactUsEntity(
-    val name:String,
-    val mobileNumber:String,
-    val email:String
+    val name: String,
+    val mobileNumber: String,
+    val email: String
 )
